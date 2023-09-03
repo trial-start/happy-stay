@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Property Listing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <link rel="stylesheet" href="{% static 'explore.css' %}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand" href="#">HappyStay</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home'%}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#goto">Explore</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="property-details">
+                    <h2>Property Details</h2>
+                    <div class="image">
+                        <img src="https://picsum.photos/900/400
+                        " alt="Property Image">
+                    </div>
+                    <div class="title">{{explores.name}}</div>
+                    <div class="description">
+                        {{explores.description}}
+                    </div>
+                    <div class="price">{{explores.cost}}</div>
+                    <div class="rating">Rating: {{explores.rating}}/5</div>
+                    <div class="location">Location: {{explores.city}}, {{explores.country}}</div>
+                    <hr>
+                    <div class="amenities">
+                        <h3>Amenities</h3>
+                        <ul>
+                            <li><i class="fas fa-wifi"></i>
+                                <pre> </pre> Wi-Fi
+                            </li>
+                            <li><i class="fas fa-swimming-pool"></i>
+                                <pre> </pre> Swimming Pool
+                            </li>
+                            <li><i class="fas fa-dumbbell"></i>
+                                <pre> </pre> Gym
+                            </li>
+                            <li><i class="fas fa-utensils"></i>
+                                <pre> </pre> Restaurant
+                            </li>
+                            <li><i class="fas fa-parking"></i>
+                                <pre> </pre>Parking
+                            </li>
+                        </ul>
+                    </div>
+
+                    <hr>
+
+
+                    <div class="property-details">
+                        <h3>About the Place</h3>
+                        <p class="break">
+                            {{explores.about}}
+                        </p>
+
+                    </div>
+                    <div class="button-container">
+                        <a href="/book">
+                            <button class="button">Book Now</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <footer class="footer" style="background-color: #dddddd;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>About</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tristique dictum est, ac cursus
+                        quam semper at.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Explore</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'home'%}">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Destinations</a></li>
+                        <li><a href="#">Hosts</a></li>
+                        <li><a href="#">Experiences</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h3>Contact</h3>
+                    <p>123 Street, City, Country</p>
+                    <p>Email: info@example.com</p>
+                    <p>Phone: +1234567890</p>
+                </div>
+            </div>
+            <hr style="background-color: #222831; height: 1px;">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2023 HappyStay. All rights reserved.</p>
+                </div>
+                <div class="col-md-6">
+                    <ul class="footer-social">
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

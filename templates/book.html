@@ -1,0 +1,230 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Booking Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'book.css' %}">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: white;">
+        <a class="navbar-brand" href="#">HappyStay</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="home#goto">Destinations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="booking-details">
+                    <h2>Booking Details</h2>
+                    <form id="booking-form" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name='name' id="name" placeholder="Enter your name">
+                            <div id="nameError" class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="Enter your email">
+                            <div id="emailError" class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" name="phone" id="phone" placeholder="Enter your phone number">
+                            <div id="phoneError" class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="guests">Number of Guests</label>
+                            <select id="guests">
+                                <option value="" disabled selected>Select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                            <div id="guestsError" class="error-message"></div>
+                        </div>
+                        <div class="payment-details">
+                            <h2>Payment Details</h2>
+                            <div class="form-group">
+                                <label for="card">Card Number</label>
+                                <input type="text" id="card" name="card" placeholder="Enter your card number">
+                                <div id="cardError" class="error-message"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="expiry">Expiration Date</label>
+                                <input type="text" id="expiry" placeholder="MM/YYYY">
+                                <div id="expiryError" class="error-message"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="number" id="cvv" placeholder="Enter the CVV">
+                                <div id="cvvError" class="error-message"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="terms">
+                                    <input type="checkbox" id="terms"> I agree to the terms and conditions
+                                </label>
+                                <div id="termsError" class="error-message"></div>
+                            </div>
+                        </div>
+                        <div class="button-container">
+                            <button class="button" type="submit">Book Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#booking-form').on('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Clear previous error messages
+                $('.error-message').text('');
+
+                // Validate the form inputs
+                var isValid = true;
+
+                // Name validation
+                var name = $('#name').val().trim();
+                if (name === '') {
+                    isValid = false;
+                    $('#nameError').text('Please enter your name');
+                }
+
+                // Email validation
+                var email = $('#email').val().trim();
+                if (email === '') {
+                    isValid = false;
+                    $('#emailError').text('Please enter your email');
+                } else if (!validateEmail(email)) {
+                    isValid = false;
+                    $('#emailError').text('Please enter a valid email address');
+                }
+
+                // Phone validation
+                var phone = $('#phone').val();
+                if (phone === '') {
+                    isValid = false;
+                    $('#phoneError').text('Please enter your phone number');
+                }
+
+                // Number of guests validation
+                var guests = $('#guests').val();
+                if (guests === '') {
+                    isValid = false;
+                    $('#guestsError').text('Please select the number of guests');
+                }
+
+                // Card number validation
+                var card = $('#card').val();
+                if (card === '') {
+                    isValid = false;
+                    $('#cardError').text('Please enter your card number');
+                } else if (!isValidCardNumber(card)) {
+                    isValid = false;
+                    $('#cardError').text('Please enter a valid card number(12-19 numbers)');
+                }
+
+                // Expiration Date validation
+                var expiry = $('#expiry').val();
+                if (expiry === '') {
+                    isValid = false;
+                    $('#expiryError').text('Please enter the expiration date');
+                } else if (!isValidExpiry(expiry)) {
+                    isValid = false;
+                    $('#expiryError').text('Please enter a valid expiry date (MM/YYYY)');
+                }
+
+                // CVV validation
+                var cvv = $('#cvv').val();
+                if (cvv === '') {
+                    isValid = false;
+                    $('#cvvError').text('Please enter the CVV');
+                } else if (!isValidCVV(cvv)) {
+                    isValid = false;
+                    $('#cvvError').text('Please enter a valid CVV (3 or 4 digits)');
+                }
+
+                // Terms and conditions validation
+                var terms = $('#terms').is(':checked');
+                if (!terms) {
+                    isValid = false;
+                    $('#termsError').text('Please agree to the terms and conditions');
+                }
+
+                if (!isValid) {
+                    return;
+                }
+
+                // Serialize the form data
+                var formData = $(this).serialize();
+
+                // Send the AJAX request
+                $.ajax({
+                    url: '{% url "bookh" %}',
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        // Handle the response
+                        alert(response.message);  // Display the success message
+                        $('#booking-form')[0].reset();
+
+                    },
+                    error: function (xhr, textStatus, error) {
+                        // Handle the error
+                        console.log(xhr.statusText);
+                    }
+                });
+            });
+        });
+
+        function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+
+        function isValidCardNumber(cardNumber) {
+            var re = /^[0-9]{12,19}$/;
+            return re.test(cardNumber);
+        }
+
+        function isValidExpiry(expiry) {
+            var re = /^(0[1-9]|1[0-2])\/[0-9]{4}$/;
+            return re.test(expiry);
+        }
+
+        function isValidCVV(cvv) {
+            var re = /^[0-9]{3,4}$/;
+            return re.test(cvv);
+        }
+    </script>
+</body>
+
+</html>

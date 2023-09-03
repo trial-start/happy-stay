@@ -53,7 +53,7 @@ Before you begin, ensure you have met the following requirements:
 1. Clone the HappyStay repository to your local machine using the following command:
 
    ```bash
-   git clone https://github.com/trial-start/happy-stay
+   git clone https://github.com/trial-start/happy-stay.git
    ```
 
 2. Navigate to the project directory:

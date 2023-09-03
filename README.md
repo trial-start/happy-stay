@@ -11,9 +11,6 @@ HappyStay is a simple web-based platform that allows users to find unique accomm
 - [Installation](#installation)
 - [Usage](#usage)
 - [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
 
 ## Features
 
@@ -47,7 +44,7 @@ HappyStay is a simple web-based platform that allows users to find unique accomm
 
 Before you begin, ensure you have met the following requirements:
 
-- Python 3.x
+- Python 
 - Django
 - Git
 - A text editor or integrated development environment (IDE)
@@ -73,20 +70,21 @@ Before you begin, ensure you have met the following requirements:
     python -m venv venv
    ```
 
- Activate the virtual environment:
-  On Windows:
+    Activate the virtual environment:
+   
+     On Windows:
+   
+      ```bash
+     venv\Scripts\activate
+      ```
+   
+     On macOS and Linux:
+   
+      ```bash
+       source venv/bin/activate
+      ```
 
-   ```bash
-  venv\Scripts\activate
-   ```
-
-  On macOS and Linux:
-
-   ```bash
-    source venv/bin/activate
-   ```
-
-4. Start the development server:
+5. Start the development server:
 
    ```bash
    python manage.py runserver

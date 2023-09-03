@@ -59,37 +59,38 @@ Before you begin, ensure you have met the following requirements:
 
    ```bash
    git clone https://github.com/yourusername/happystay.git
+   ```
 
 2. Navigate to the project directory:
 
    ```bash
     cd happystay
+   ```
 
 3. Create a virtual environment (optional but recommended):
 
    ```bash
     python -m venv venv
-    Activate the virtual environment:
+   ```
 
+ Activate the virtual environment:
   On Windows:
 
    ```bash
   venv\Scripts\activate
+   ```
 
   On macOS and Linux:
 
    ```bash
     source venv/bin/activate
+   ```
 
-4. Install the project dependencies:
-
-   ```bash
-      pip install -r requirements.txt
-
-5. Start the development server:
+4. Start the development server:
 
    ```bash
    python manage.py runserver
+   ```
 
 6. Open your web browser and access the development server at http://127.0.0.1:8000/ to see the HappyStay website.
 
